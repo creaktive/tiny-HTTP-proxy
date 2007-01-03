@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "logger"=.\logger\logger.dsp - Package Owner=<4>
+Project: "logger"=".\logger\logger.dsp" - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -15,7 +15,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "proxy"=.\proxy.dsp - Package Owner=<4>
+Project: "proxy"=".\proxy.dsp" - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -26,6 +26,21 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name logger
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name replicator
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "replicator"=".\replicator\replicator.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
 }}}
 
 ###############################################################################

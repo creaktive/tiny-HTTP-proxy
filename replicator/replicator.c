@@ -16,10 +16,6 @@
 #include "resource.h"
 
 
-#define DEMO	20*60*1000
-static UINT TimerID = 0;
-
-
 #define BUFLEN	4096
 
 
@@ -54,14 +50,6 @@ static HWND hMain = NULL;
 static HWND hDlg = NULL;
 static HWND hList;
 static BOOL capture = FALSE;
-
-
-VOID CALLBACK DemoExpired(
-	HWND hwnd,		// handle of window for timer messages
-	UINT uMsg,		// WM_TIMER message
-	UINT idEvent,	// timer identifier
-	DWORD dwTime	// current system time
-);
 
 
 BOOL WINAPI DllMain(
@@ -341,10 +329,6 @@ BOOL CALLBACK ReplicatorDialog(
 	{
 		case WM_INITDIALOG:
 		{
-			#ifdef DEMO
-				SetWindowText(hWnd, "HTTP Packet Replicator (DEMO)");
-			#endif
-
 			hDlg = hWnd;
 			SetDlgItemInt(hWnd, IDC_DELAY, 300, FALSE);
 			hList = CreateListView(hWnd);
@@ -484,10 +468,6 @@ __declspec(dllexport) BOOL FilterInit (HWND hWnd)
 	if (WSAStartup(MAKEWORD(1, 1), &wsaData) != 0)
 		return FALSE;
 
-	#ifdef DEMO
-			TimerID = SetTimer(NULL, 0, DEMO, DemoExpired);
-	#endif
-
 	return TRUE;
 }
 
@@ -538,21 +518,3 @@ __declspec(dllexport) BOOL FilterEnd (VOID)
 
 	return TRUE;
 }
-
-
-#ifdef DEMO
-
-VOID CALLBACK DemoExpired(
-	HWND hwnd,		// handle of window for timer messages
-	UINT uMsg,		// WM_TIMER message
-	UINT idEvent,	// timer identifier
-	DWORD dwTime	// current system time
-)
-{
-	FilterEnd();
-	PostMessage(hDlg, WM_QUIT, 0, 0);
-	PostMessage(hMain, WM_QUIT, 0, 0);
-	return;
-}
-
-#endif
